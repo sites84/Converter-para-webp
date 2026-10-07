@@ -5,8 +5,20 @@
 <title>WebP Compressor</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#0b1020;color:#eef3ff;font:15px system-ui,Arial;min-height:100vh}.wrap{max-width:1100px;margin:auto;padding:28px 16px 50px}h1{text-align:center;font-size:42px;margin:0 0 6px}header p{text-align:center;color:#9ba8c7;margin:0 0 25px}.card{background:#11182b;border:1px solid #293653;border-radius:18px;padding:20px}.drop{border:2px dashed #405174;border-radius:15px;padding:42px 15px;text-align:center;cursor:pointer}.drop:hover,.drop.drag{border-color:#6ea8fe;background:#121d35}.drop b{display:block;font-size:20px;margin-bottom:7px}.muted{color:#9ba8c7}.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.box{background:#17213a;border:1px solid #293653;border-radius:12px;padding:13px}.box label{display:block;color:#9ba8c7;font-size:13px;margin-bottom:7px}.box input,.box select{width:100%;background:#0c1426;color:#fff;border:1px solid #34425f;border-radius:8px;padding:9px}.range{display:flex;gap:9px;align-items:center}.range input{padding:0}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}button{border:0;border-radius:10px;padding:10px 15px;font-weight:700;color:#fff;background:linear-gradient(135deg,#6ea8fe,#8b7cff);cursor:pointer}button.secondary{background:#263451}button.danger{background:#472532;color:#ffb0b0}button:disabled{opacity:.45;cursor:not-allowed}.summary{display:flex;gap:18px;flex-wrap:wrap;color:#9ba8c7;margin:17px 0}.summary b{color:#fff}.list{display:grid;gap:10px}.item{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;background:#0e1628;border:1px solid #293653;border-radius:12px;padding:9px}.thumb{width:72px;height:60px;object-fit:cover;border-radius:8px}.name{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:12px;color:#9ba8c7;margin-top:4px}.bar{height:6px;background:#202d46;border-radius:9px;margin-top:7px;overflow:hidden}.bar i{display:block;width:0;height:100%;background:#6ea8fe}.badge{display:inline-block;background:#213052;padding:2px 6px;border-radius:20px;margin-left:5px}.empty{text-align:center;color:#71809d;padding:28px}.hide{display:none!important}.note{font-size:12px;color:#7d8aa5;margin-top:14px;line-height:1.5}@media(max-width:800px){.controls{grid-template-columns:1fr 1fr}}@media(max-width:520px){h1{font-size:32px}.controls{grid-template-columns:1fr}.item{grid-template-columns:55px 1fr}.thumb{width:55px;height:50px}.item>div:last-child{grid-column:1/-1}.item button{width:100%}}
+</style><style>
+.top-banner{display:block;width:100%;max-width:1100px;margin:0 auto 18px;border-radius:14px;overflow:hidden;cursor:pointer;border:1px solid #293653}
+.top-banner img{display:block;width:100%;height:auto}
+.support{margin-top:22px;text-align:center;padding-top:20px;border-top:1px solid #293653}
+.support img{display:block;width:min(100%,420px);height:auto;margin:0 auto 14px;border-radius:12px}
+.pix-btn{background:#16865b;padding:12px 22px}
+.daily-overlay{position:fixed;inset:0;background:rgba(4,7,15,.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:18px;z-index:9999}
+.daily-modal{max-width:430px;width:100%;background:#11182b;border:1px solid #34425f;border-radius:18px;padding:24px;box-shadow:0 25px 80px rgba(0,0,0,.55)}
+.daily-modal h2{margin:0 0 10px}.daily-modal p{color:#aab6d0;line-height:1.55;font-size:14px}.daily-modal button{width:100%;margin-top:8px}
+.daily-modal .small{font-size:11px;color:#71809d;text-align:center;margin-top:10px}
 </style></head>
-<body><main class="wrap"><header><h1>WebP Compressor</h1><p>Converta e compacte imagens diretamente no navegador.</p></header>
+<body><main class="wrap">
+<a class="top-banner" href="https://simule.mycon.com.br/?referralcode=P8tKvjN4vR%2fXk9dn%2bXx41A%3d%3d" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/sites84/Gifator/main/banner%20mycon.webp" alt="Conheça a Mycon"></a>
+<header><h1>WebP Compressor</h1><p>Converta e compacte imagens diretamente no navegador.</p></header>
 <section class="card"><div id="drop" class="drop"><b>Arraste suas imagens aqui</b><span class="muted">ou toque para selecionar várias imagens</span><input id="files" type="file" accept="image/*" multiple hidden></div>
 <div class="controls">
 <div class="box"><label>Modo</label><select id="mode"><option value="quality">Qualidade ajustável</option><option value="lossless">WebP Lossless</option><option value="target">Melhor qualidade por tamanho</option></select></div>
@@ -17,7 +29,21 @@
 <div class="actions"><button id="convert">Converter imagens</button><button id="zip" class="secondary" disabled>Baixar tudo (ZIP)</button><button id="clear" class="danger">Limpar</button></div>
 <div class="summary"><span>Arquivos: <b id="count">0</b></span><span>Original: <b id="orig">0 B</b></span><span>WebP: <b id="out">0 B</b></span><span>Economia: <b id="save">—</b></span></div>
 <div id="list"><div class="empty">Nenhuma imagem adicionada.</div></div>
-<div class="note">O processamento das imagens ocorre no dispositivo. Lossless preserva os pixels; os modos de qualidade usam compressão com perdas. O ZIP é gerado localmente.</div></section></main>
+<div class="note">O processamento das imagens ocorre no dispositivo. Lossless preserva os pixels; os modos de qualidade usam compressão com perdas. O ZIP é gerado localmente.</div></section>
+<div class="support">
+<img src="https://raw.githubusercontent.com/sites84/Gifator/main/200178.png" alt="Apoie o projeto">
+<button class="pix-btn" id="pix">Copiar Pix</button>
+<div class="note">Se esta ferramenta foi útil para você, considere apoiar o projeto.</div>
+</div>
+</main>
+<div id="dailyGate" class="daily-overlay">
+<div class="daily-modal">
+<h2>Como funciona</h2>
+<p>Este site converte suas imagens para WebP diretamente no navegador. Você pode enviar várias imagens, escolher qualidade, usar WebP Lossless, definir um tamanho máximo, redimensionar e baixar os arquivos individualmente ou em ZIP.</p>
+<p>Para liberar o acesso no primeiro acesso de hoje, toque em <b>Continuar</b>. Uma página será aberta em outra aba. Depois disso, volte para esta aba e o conversor será liberado.</p>
+<button id="continueBtn">Continuar</button>
+<div class="small">Essa verificação aparece no máximo uma vez por dia neste navegador.</div>
+</div></div>
 <script>
 const $=x=>document.getElementById(x);let fs=[],rs=[];
 $('drop').onclick=()=>$('files').click();$('files').onchange=e=>add([...e.target.files]);
@@ -39,4 +65,8 @@ function summary(){let a=fs.reduce((s,x)=>s+x.size,0),b=rs.reduce((s,x)=>s+x.b.s
 $('clear').onclick=()=>{fs=[];rs=[];$('zip').disabled=true;render();summary()};
 $('zip').onclick=async()=>{if(!rs.length)return;let s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';s.onload=async()=>{let z=new JSZip;rs.forEach(x=>z.file(x.n,x.b));dl(await z.generateAsync({type:'blob'}),'imagens-webp.zip')};document.head.append(s)};
 render();summary();
+document.getElementById('pix').onclick=async()=>{const t='00020101021126330014BR.GOV.BCB.PIX0111308810008415204000053039865802BR5921Edson Lopes Fernandes6009SAO PAULO62080504daqr63042D44';try{await navigator.clipboard.writeText(t);const b=document.getElementById('pix');const old=b.textContent;b.textContent='Pix copiado!';setTimeout(()=>b.textContent=old,1800)}catch(e){prompt('Copie o código Pix:',t)}};
+const gate=document.getElementById('dailyGate'), key='webp_gate_'+new Date().toISOString().slice(0,10);
+if(localStorage.getItem(key)==='1')gate.remove();
+document.getElementById('continueBtn').onclick=()=>{window.open('https://s.shopee.com.br/9KiKsrOPFh','_blank','noopener,noreferrer');localStorage.setItem(key,'1');gate.remove()};
 </script></body></html>
